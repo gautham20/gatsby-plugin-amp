@@ -31,6 +31,7 @@ export const onPreRenderHTML = (
     relAmpHtmlPattern = "{{canonicalBaseUrl}}{{pathname}}{{pathIdentifier}}"
   }
 ) => {
+  const pathnameNoHtml = pathname.replace('.html', '')
   const headComponents = flattenDeep(getHeadComponents());
   const preBodyComponents = getPreBodyComponents();
   const postBodyComponents = getPostBodyComponents();
@@ -110,7 +111,8 @@ export const onPreRenderHTML = (
         href={interpolate(relAmpHtmlPattern, {
           canonicalBaseUrl,
           pathIdentifier,
-          pathname
+          pathname,
+          pathnameNoHtml
         }).replace(/([^:])(\/\/+)/g, "$1/")}
       />,
       ...headComponents
